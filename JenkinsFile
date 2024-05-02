@@ -1,0 +1,78 @@
+pipeline {
+    agent any
+    
+    environment {
+        DIRECTORY_PATH = '/path/to/code/directory'
+        TESTING_ENVIRONMENT = 'Staging'
+        PRODUCTION_ENVIRONMENT = 'Production'
+    }
+    
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building the code...'
+                sh 'mvn clean install' // Placeholder for Maven build command
+            }
+        }
+        
+        stage('Unit and Integration Tests') {
+            steps {
+                echo 'Running unit tests...'
+                sh 'mvn test' // Placeholder for running unit tests with Maven
+                echo 'Running integration tests...'
+                sh 'mvn integration-test' // Placeholder for running integration tests
+            }
+        }
+        
+        stage('Code Analysis') {
+            steps {
+                echo 'Analyzing code...'
+                sh 'sonar-scanner' // Placeholder for SonarQube code analysis
+            }
+        }
+        
+        stage('Security Scan') {
+            steps {
+                echo 'Performing security scan...'
+                sh 'owasp-zap -scan' // Placeholder for OWASP ZAP security scan
+            }
+        }
+        
+        stage('Deploy to Staging') {
+            steps {
+                echo 'Deploying to staging environment...'
+                sh 'ssh user@staging-server "deploy-script.sh"' // Placeholder for deployment to staging server
+            }
+        }
+        
+        stage('Integration Tests on Staging') {
+            steps {
+                echo 'Running integration tests on staging...'
+                sh 'mvn verify' // Placeholder for running tests on staging environment
+            }
+        }
+        
+        stage('Deploy to Production') {
+            steps {
+                echo 'Deploying to production environment...'
+                sh 'ssh user@production-server "deploy-script.sh"' // Placeholder for deployment to production server
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+        success {
+            emailext body: 'Pipeline succeeded. All stages completed successfully.',
+                     subject: 'Pipeline Status: Success',
+                     to: 'rahul46p@gmail.com'
+        }
+        failure {
+            emailext body: 'Pipeline failed. Check logs for details.',
+                     subject: 'Pipeline Status: Failure',
+                     to: 'rahul46p@gmail.com'
+        }
+    }
+}
