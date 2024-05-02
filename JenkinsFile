@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the code...'
-                //sh 'mvn clean install' // Placeholder for Maven build command
+                //sh 'mvn clean install' //  Placeholder for Maven build command
             }
         }
         
@@ -27,7 +27,7 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo 'Analyzing code...'
-                //sh 'sonar-scanner' // Placeholder for SonarQube code analysis
+                //sh 'sonar-scanner' //  Placeholder for SonarQube code analysis
             }
         }
         
