@@ -29,14 +29,14 @@ pipeline {
                     emailext body: "Test Stage: Success\n\nPlease find attached test logs.",
                              subject: "Pipeline Test Status: Success",
                              to: 'rahul46p@gmail.com',
-                             attachmentsPattern: "*.log"
+                             attachmentsPattern: "sample.log"
                 }
                 failure {
                     // Send email notification on test failure
                     emailext body: "Test Stage: Failure\n\nPlease find attached test logs.",
                              subject: "Pipeline Test Status: Failure",
                              to: 'rahul46p@gmail.com',
-                             attachmentsPattern: "*.log"
+                             attachmentsPattern: "sample.log"
                 }
             }
         }
