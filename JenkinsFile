@@ -4,7 +4,7 @@ pipeline {
     environment {
         DIRECTORY_PATH = '/path/to/code/directory'
         TESTING_ENVIRONMENT = 'Staging'
-        PRODUCTION_ENVIRONMENT = 'Production'
+        PRODUCTION_ENVIRONMENT = 'Production' 
     }
     
     stages {
