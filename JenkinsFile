@@ -22,6 +22,22 @@ pipeline {
                 echo 'Running integration tests...'
                 //sh 'mvn integration-test' // Placeholder for running integration tests
             }
+    post {
+                success {
+                    // Send email notification on test success
+                    emailext body: "Test Stage: Success\n\nPlease find attached test logs.",
+                             subject: "Pipeline Test Status: Success",
+                         to: 'rahul46p@gmail.com'
+                             attachmentsPattern: "*.log"
+                }
+                failure {
+                    // Send email notification on test failure
+                    emailext body: "Test Stage: Failure\n\nPlease find attached test logs.",
+                             subject: "Pipeline Test Status: Failure",
+                         to: 'rahul46p@gmail.com'
+                             attachmentsPattern: "*.log"
+                }
+            }
         }
         
         stage('Code Analysis') {
@@ -35,6 +51,22 @@ pipeline {
             steps {
                 echo 'Performing security scan...'
                 //sh 'owasp-zap -scan' // Placeholder for OWASP ZAP security scan
+            }
+ post {
+                success {
+                    // Send email notification on security scan success
+                    emailext body: "Security Scan Stage: Success\n\nPlease find attached security scan logs.",
+                             subject: "Pipeline Security Scan Status: Success",
+                              to: 'rahul46p@gmail.com'
+                             attachmentsPattern: "*.log"
+                }
+                failure {
+                    // Send email notification on security scan failure
+                    emailext body: "Security Scan Stage: Failure\n\nPlease find attached security scan logs.",
+                             subject: "Pipeline Security Scan Status: Failure",
+                              to: 'rahul46p@gmail.com'
+                             attachmentsPattern: "*.log"
+                }
             }
         }
         
